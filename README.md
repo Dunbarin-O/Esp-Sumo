@@ -48,3 +48,6 @@ My initial plan was to use two buck converters in series to drop the 7.4V (2S Li
 
 ### Final Solution: Single Buck + 3.3V LDO Regulator
 I simplified the power tree by keeping a single buck converter for the 5V rail and replacing the second buck stage with a straightforward 3.3V Low-Dropout (LDO) linear regulator.
+<img width="662" height="161" alt="image" src="https://github.com/user-attachments/assets/78cd9888-940a-4b8b-9529-73642ea8acf9" /> <img width="493" height="248" alt="image" src="https://github.com/user-attachments/assets/36244862-ba0c-40d4-b81a-cdb78638a8ed" />
+
+
