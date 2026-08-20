@@ -14,18 +14,16 @@ Inverted Pendulum / Self-Balancing: Direct IMU integration for low-latency loop 
 
 Heading-Corrected Rovers: Closed-loop yaw monitoring for straight-line differential driving and precise turn angles.
 
- V1 Key Features:
+### V1 Key Features
 
-  Native dual DC motor drivers with PWM speed and direction control
-  Dual TI DRV8870 motor driver IC's with PWM speed and direction control
-  supporting motors with peak currents of up to 3.6 A .
+* **Dual High-Current Motor Drivers:** Two TI DRV8870 ICs providing independent PWM speed and direction control, supporting up to 3.6 A peak output per channel.
+* **Onboard Motion Sensing:** MPU-6050 6-axis gyroscope and accelerometer connected via I2C for pitch, roll, and yaw feedback.
+* **Integrated Diagnostic Display Header:** Dedicated 4-pin I2C header positioned for direct SSD1306 OLED screens (128x64 or 128x32).
+* **User Input Controls:** 3 onboard tactical pushbuttons mapped to ESP32 GPIOs for mode selection, calibration, and menu navigation.
+* **Built-in Servo Mount & Header:** Dedicated 3-pin PWM servo header (VCC, GND, Signal) with mounting holes integrated directly into the PCB outline (ideal for mini sumo flippers or sensor sweepers).
+* **Optimized Power Architecture:** Designed for 2S (7.4V) LiPo input with onboard voltage regulation to safely power the ESP32, OLED, and logic components.
+* **Expansion I/O:** Exposed GPIO headers for IR edge sensors, line detectors, or custom sensors.
+* **100% Open-Source Hardware:** Full KiCad project files, schematics, PCB layouts, BOM, and manufacturing outputs (Gerbers/CPL) included.
   
-  Onboard 6-axis mpu-6050 gyroscope/accelerometer using I2C interface.
-  
-  Integrated power regulation optimized for 7.4V LiPo batteries.
-  
-  Exposed GPIO headers for edge sensors, line detectors, and custom expansions.
-  
-  100% open-source hardware (KiCad schematics, PCB layout, and production files provided).
   
  <img width="1763" height="766" alt="Top+null+SMT026081362981" src="https://github.com/user-attachments/assets/32ad1a9a-bd80-4e35-ad53-a593bfcab190" />
