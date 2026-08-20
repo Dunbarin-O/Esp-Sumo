@@ -27,3 +27,24 @@ Heading-Corrected Rovers: Closed-loop yaw monitoring for straight-line different
   
   
  <img width="1763" height="766" alt="Top+null+SMT026081362981" src="https://github.com/user-attachments/assets/32ad1a9a-bd80-4e35-ad53-a593bfcab190" />
+
+ ## Engineering Design Process & Iterations
+## Power Design Choice: Dual Buck Converters vs. Buck + LDO
+
+### First Attempt: Two-Stage Buck Regulation
+My initial plan was to use two buck converters in series to drop the 7.4V (2S LiPo) battery voltage down to 5V, and then down to 3.3V for the system ICs to maximize energy efficiency.
+<img width="1337" height="504" alt="Screenshot 2026-07-03 165300" src="https://github.com/user-attachments/assets/1924f090-6275-4f11-8a7b-51b6312f975c" />
+* **Buck Stage 1 (7.4V → 5V):** Powers 5V peripherals (servos/sensors) and feeds the second regulator stage.
+  * *Space for Stage 1 Schematic / Layout Image:*
+  * 
+
+* **Buck Stage 2 (5V → 3.3V):** Steps down 5V to power the ESP32, MPU-6050, and SSD1306 OLED screen.
+  * *Space for Stage 2 Schematic / Layout Image:*
+  * 
+
+**The Problem:** Each buck converter requires its own dedicated supporting passives (inductors, filter capacitors, and feedback resistors). Running two switching stages took up too much PCB footprint, added significant routing complexity, and increased the overall Bill of Materials (BOM) cost.
+
+---
+
+### Final Solution: Single Buck + 3.3V LDO Regulator
+I simplified the power tree by keeping a single buck converter for the 5V rail and replacing the second buck stage with a straightforward 3.3V Low-Dropout (LDO) linear regulator.
