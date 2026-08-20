@@ -27,3 +27,5 @@ Heading-Corrected Rovers: Closed-loop yaw monitoring for straight-line different
   Exposed GPIO headers for edge sensors, line detectors, and custom expansions.
   
   100% open-source hardware (KiCad schematics, PCB layout, and production files provided).
+  
+ <img width="1763" height="766" alt="Top+null+SMT026081362981" src="https://github.com/user-attachments/assets/32ad1a9a-bd80-4e35-ad53-a593bfcab190" />
