@@ -51,6 +51,33 @@ Heading-Corrected Rovers: Closed-loop yaw monitoring for straight-line different
   
  <img width="1763" height="766" alt="Top+null+SMT026081362981" src="https://github.com/user-attachments/assets/32ad1a9a-bd80-4e35-ad53-a593bfcab190" />
 
+
+ ## ESP32-S3 GPIO Pin Mapping
+
+| GPIO Pin | Label / Connection | Subsystem | Function / Description |
+| :--- | :--- | :--- | :--- |
+| **GPIO1** | `D1` | User UI | Pushbutton SW4 (Input w/ Pull-up) |
+| **GPIO2** | `D2` | User UI | Pushbutton SW5 (Input w/ Pull-up) |
+| **GPIO3** | `D3` | User UI | Pushbutton SW6 (Input w/ Pull-up) |
+| **GPIO4** | `D4` | IR Sensors | Front Left IR Sensor Signal (`J6`) |
+| **GPIO5** | `D5` | IR Sensors | Front Right IR Sensor Signal (`J8`) |
+| **GPIO6** | `D6` | IR Sensors | Edge Left IR Floor Sensor Signal (`J9`) |
+| **GPIO7** | `D7` | IR Sensors | Edge Right IR Floor Sensor Signal (`J10`) |
+| **GPIO8** | `D8` | User UI | Pushbutton SW7 (Input w/ Pull-up) |
+| **GPIO9** | `D9` | Motor Driver 1 | `IN1` Control Pin (U7 DRV8870 - Left Motor PWM) |
+| **GPIO10** | `D10` | Motor Driver 1 | `IN2` Control Pin (U7 DRV8870 - Left Motor Dir) |
+| **GPIO11** | `D11` | Servo | PWM Output Signal Header (`J11`) |
+| **GPIO12** | `D12` | Status LED | User Indicator LED D6 |
+| **GPIO13** | `D13` | Motor Driver 2 | `IN1` Control Pin (U8 DRV8870 - Right Motor PWM) |
+| **GPIO14** | `D14` | Motor Driver 2 | `IN2` Control Pin (U8 DRV8870 - Right Motor Dir) |
+| **GPIO15** | `D15` | I2C Bus | `SCL` Serial Clock (Shared: MPU-6050 & SSD1306 OLED) |
+| **GPIO16** | `D16` | I2C Bus | `SDA` Serial Data (Shared: MPU-6050 & SSD1306 OLED) |
+| **GPIO17** | `D17` | Power Protection | UV LO Alert Signal (TPS3702 Battery Supervisor) |
+| **GPIO19** | `USB_D-` | USB Interface | Native USB D- (Type-C Flashing / Serial) |
+| **GPIO20** | `USB_D+` | USB Interface | Native USB D+ (Type-C Flashing / Serial) |
+| **EN** | `EN` | System | Reset Button (SW2) / Chip Enable |
+| **IO0** | `IO0` | System | Boot Mode Selection Button (SW3) |
+
  ## Engineering Design Process & Iterations
 ## Power Design Choice: Dual Buck Converters vs. Buck + LDO
 
