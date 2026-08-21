@@ -63,7 +63,6 @@ Heading-Corrected Rovers: Closed-loop yaw monitoring for straight-line different
 | **GPIO5** | `D5` | IR Sensors | Front Right IR Sensor Signal (`J8`) |
 | **GPIO6** | `D6` | IR Sensors | Edge Left IR Floor Sensor Signal (`J9`) |
 | **GPIO7** | `D7` | IR Sensors | Edge Right IR Floor Sensor Signal (`J10`) |
-| **GPIO8** | `D8` | User UI | Pushbutton SW7 (Input w/ Pull-up) |
 | **GPIO9** | `D9` | Motor Driver 1 | `IN1` Control Pin (U7 DRV8870 - Left Motor PWM) |
 | **GPIO10** | `D10` | Motor Driver 1 | `IN2` Control Pin (U7 DRV8870 - Left Motor Dir) |
 | **GPIO11** | `D11` | Servo | PWM Output Signal Header (`J11`) |
