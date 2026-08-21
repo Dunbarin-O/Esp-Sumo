@@ -52,30 +52,31 @@ Heading-Corrected Rovers: Closed-loop yaw monitoring for straight-line different
  <img width="1763" height="766" alt="Top+null+SMT026081362981" src="https://github.com/user-attachments/assets/32ad1a9a-bd80-4e35-ad53-a593bfcab190" />
 
 
- ## ESP32-S3 GPIO Pin Mapping
+| ESP32-S3 GPIO | Schematic net | Actually connected to             |
+| ------------: | ------------- | --------------------------------- |
+|     **GPIO0** | I00           | Boot button **SW3** + 10k pull-up |
+|     **GPIO1** | D1            | **Right IR sensor** J5            |
+|     **GPIO2** | D2            | **Left IR sensor** J6             |
+|     **GPIO3** | D3            | **SW4 button**                    |
+|     **GPIO4** | D4            | **Left edge sensor** J8           |
+|     **GPIO5** | D5            | **Right edge sensor** J10         |
+|     **GPIO6** | D6            | **SW5 button**                    |
+|     **GPIO7** | D7            | **SW6 button**                    |
+|     **GPIO8** | D8            | **Left motor driver IN2**         |
+|     **GPIO9** | D9            | **Left motor driver IN1**         |
+|    **GPIO10** | D10           | **J17 breakout pin 1**            |
+|    **GPIO11** | D11           | **Gyro SCL**                      |
+|    **GPIO12** | D12           | **Gyro SDA**                      |
+|    **GPIO13** | D14           | **Right motor driver IN2**        |
+|    **GPIO14** | D13           | **Right motor driver IN1**        |
+|    **GPIO15** | D15           | **J15 / right motor?**            |
+|    **GPIO16** | D16           | **J11 servo?**                    |
+|    **GPIO17** | D17           | **J17 software uvlo**             |
+|    **GPIO18** | D18           | **Servo signal**                  |
+|    **GPIO19** | USB_D−        | **USB D−**                        |
+|    **GPIO20** | USB_D+        | **USB D+**                        |
+|    **GPIO21** | —             | **Unused**                        |
 
-## ESP32-S3 Pinout Mapping
-
-| Net Label | MicroPython Pin | Subsystem | Function / Description |
-| :--- | :--- | :--- | :--- |
-| `D1` | `GPIO 1` | IR Sensors | Right IR Sensor Signal (J5) |
-| `D2` | `GPIO 2` | IR Sensors | Left IR Sensor Signal (J6) |
-| `D3` | `GPIO 3` | User UI | Pushbutton SW4 (Input w/ Pull-up) |
-| `D4` | `GPIO 4` | IR Sensors | Edge Left IR Floor Sensor (J8) |
-| `D5` | `GPIO 5` | IR Sensors | Edge Right IR Floor Sensor (J10) |
-| `D6` | `GPIO 6` | User UI | Pushbutton SW5 (Input w/ Pull-up) |
-| `D7` | `GPIO 7` | User UI | Pushbutton SW6 (Input w/ Pull-up) |
-| `D8` | `GPIO 8` | Status LED | User Indicator LED D6 |
-| `D9` | `GPIO 9` | Motor Driver 1 | U7 DRV8870 IN2 (Left Motor Direction) |
-| `D10` | `GPIO 10` | Motor Driver 1 | U7 DRV8870 IN1 (Left Motor PWM) |
-| `D11` | `GPIO 11` | Gyro / I2C Bus | U4 MPU-6050 SCL (Serial Clock) |
-| `D12` | `GPIO 12` | Gyro / I2C Bus | U4 MPU-6050 SDA (Serial Data) |
-| `D13` | `GPIO 14` | Motor Driver 2 | U8 DRV8870 IN2 (Right Motor Direction) |
-| `D14` | `GPIO 13` | Motor Driver 2 | U8 DRV8870 IN1 (Right Motor PWM) |
-| `D15` | `GPIO 15` | Servo | PWM Output Signal Header (J11) |
-| `D16` | `GPIO 16` | Expansion | Header Pin D16 |
-| `D17` | `GPIO 17` | Power Protection | U3 TPS3702 UVLO Alert Signal |
-| `D18` | `GPIO 18` | Expansion | Header Pin D18 |
  ## Engineering Design Process & Iterations
 ## Power Design Choice: Dual Buck Converters vs. Buck + LDO
 
