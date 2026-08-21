@@ -3,10 +3,9 @@
 ESP32 General-Purpose Robotics Development Kit in its early stages 
 
 A low-cost, open-source motion control board for ESP32-based robots.
+High-performance motor boards are usually expensive or made for just one job. This project is a low-cost, all-in-one board that lets you build precise small robots without needing extra shields or breakout boards.
 
-High-performance motor driver boards are often tailored to a single use case or carry a steep price tag. This project provides a low-cost, all-in-one hardware foundation designed to drive small-scale, high-precision mobile robots without requiring extra breakout boards or expensive driver shields.
-
-Supported Kinematics & Applications:
+Applications:
 
 Mini Sumo Robots: Integrated motor control and gyro feedback for rapid opponent tracking and high-torque maneuvers.
 
@@ -45,7 +44,7 @@ I simplified the power tree by keeping a single buck converter for the 5V rail a
 
 ## Peer Design Review: Power & Protection Enhancements
 
-Following the V1 layout release, a community hardware review identified several critical power delivery and protection improvements to increase reliability during high-stress Mini Sumo operation:
+Following the V1 layout release, a community hardware review identified several critical power delivery and protection improvements to increase reliability:
 
 ### 1. Battery Input & System Protection
 * **Circuit Protection:** The design was solid, but it lacked input safety. Adding an in-line fuse and a reverse-polarity protection circuit (e.g., a P-channel MOSFET or ideal diode) on the 2S LiPo rail is essential to prevent permanent board failure from accidental battery misplugs during quick pit stops.
@@ -60,3 +59,11 @@ Following the V1 layout release, a community hardware review identified several 
 
 
 
+### Power Isolation: OR-ing Diode Selection
+
+To prevent backfeeding power between the USB-C 5V supply and the onboard 5V buck converter when both are plugged in simultaneously, I implemented a simple diode OR-ing power path
+combining the 2 into 5V Safe and feeding it into ldo.
+
+* **Why Schottky over Silicon Diodes:** Standard silicon rectifiers cause a ~0.7V drop, which would reduce the 5.0V USB rail down to 4.3V—dangerously close to the ESP32's minimum operating threshold and brownout limit.
+* **Low Forward Voltage ($V_F$):** Using Schottky diodes keeps the voltage drop under ~0.3V, maintaining a stable supply rail (~4.7V+) for logic components and sensors while safely preventing reverse current flow into your computer's USB port or the buck regulator.
+  <img width="651" height="521" alt="image" src="https://github.com/user-attachments/assets/5f31de6a-ffd7-4cc3-ada9-85864d5ca93f" />
