@@ -67,3 +67,10 @@ combining the 2 into 5V Safe and feeding it into ldo.
 * **Why Schottky over Silicon Diodes:** Standard silicon rectifiers cause a ~0.7V drop, which would reduce the 5.0V USB rail down to 4.3V—dangerously close to the ESP32's minimum operating threshold and brownout limit.
 * **Low Forward Voltage ($V_F$):** Using Schottky diodes keeps the voltage drop under ~0.3V, maintaining a stable supply rail (~4.7V+) for logic components and sensors while safely preventing reverse current flow into your computer's USB port or the buck regulator since a lipo battery is used trying to charge over usb withour any charging circuits could be dangerous.
   <img width="651" height="521" alt="image" src="https://github.com/user-attachments/assets/5f31de6a-ffd7-4cc3-ada9-85864d5ca93f" />
+### Front-End Power Protection Circuit
+
+* **P-Channel Reverse Polarity Protection (AO3401A):** Uses a low-$R_{DS(on)}$ P-FET (Q1) to block reverse voltage if the battery is plugged in backward, with a 10V Zener diode (D1) protecting $V_{GS}$ against voltage transients.
+* **Overcurrent Safety (F1):** In-line fuse provides hard fault protection against high-current shorts.
+* **Active Under-Voltage Monitoring (TPS3702):** Samples battery rail via resistor divider (R21/R22) and outputs a low-battery alert signal (D17) to the ESP32 to prevent over-discharging 2S LiPo cells.
+* <img width="1071" height="441" alt="image" src="https://github.com/user-attachments/assets/e562dbd5-3411-494c-a677-0f14db7d65c9" />
+
