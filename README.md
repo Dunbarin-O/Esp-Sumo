@@ -146,8 +146,10 @@ My initial plan was to use two compact DRV8220 drivers in the DRL package, but b
 <img width="1298" height="437" alt="image" src="https://github.com/user-attachments/assets/195faf15-e0a2-4435-b9f5-aba8458ab8ba" />
 
 I upgraded to two DRV8870 drivers featuring an exposed PowerPAD package and external sense resistors:
-* **Hand-Soldering Friendly:** The larger HSOP-8 package with exposed leads proved crucial for reliable hand-assembly and inspection during board prototyping.
+* **Hand-Soldering Friendly:** The larger HSOP-8 package with exposed leads **very** important for reliable hand soldering(ended up having it assembled by jcl).
 * **Superior Thermals:** Lower internal resistance ($450\,\text{m}\Omega$) paired with a copper thermal pad handles up to $3.6\text{A}$ peak current safely.
+* <img width="413" height="630" alt="image" src="https://github.com/user-attachments/assets/e5b2cec0-4098-48ca-ac25-e980a780fd31" />
+
 * **Smart Current Chopping ($I_{\text{TRIP}}$):** Instead of shutting down completely during a stall, the driver uses parallel sense resistors ($R17 - R20$) totaling $0.2\,\Omega$ to limit current automatically:
   $$I_{\text{TRIP}} = \frac{V_{\text{REF}}}{10 \times R_{\text{ISEN}}} = \frac{3.3\text{V}}{10 \times 0.2\,\Omega} = 1.65\text{A}$$
   When pushing heavy loads, the chip acts like an automatic safety valve—"chopping" current to maintain maximum pushing force without tripping power failures or browning out the battery rail.
