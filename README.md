@@ -124,4 +124,33 @@ combining the 2 into 5V Safe and feeding it into ldo.
 * **Overcurrent Safety (F1):** In-line fuse provides hard fault protection against high-current shorts.
 * **Active Under-Voltage Monitoring (TPS3702):** Samples battery rail via resistor divider (R21/R22) and outputs a low-battery alert signal (D17) to the ESP32 to prevent over-discharging 2S LiPo cells.
 * <img width="1071" height="441" alt="image" src="https://github.com/user-attachments/assets/e562dbd5-3411-494c-a677-0f14db7d65c9" />
+## Picking a driver IC : DRV8220 vs. DRV8870
 
+When designing the motor stage, I needed driver chips capable of handling high startup currents and heavy mechanical loads without overheating or shutting down mid-operation.
+
+### First Attempt: Dual DRV8220 (Compact, but Limited)
+
+<img width="1029" height="385" alt="image" src="https://github.com/user-attachments/assets/ad9ed73f-566d-4e69-b2ab-d1ca69d7d7fc" />
+
+My initial plan was to use two compact DRV8220 drivers in the DRL package, but bench analysis revealed major bottlenecks:
+* **Thermal Overheating:** High internal resistance ($R_{DS(on)} \approx 1\,\Omega$) and the lack of a thermal pad ($152\,^{\circ}\text{C/W}$ thermal resistance) caused severe heat buildup, limiting continuous current to $< 0.9\text{A}$.
+* **Hard Shutdowns:** The $1.76\text{A}$ overcurrent protection (OCP) cuts power entirely during high loads or stalls, stopping the robot mid-operation instead of sustaining torque.
+* **Difficult Hand-Soldering:** The tiny leadless DRL package has contacts tucked under the chip, making it extremely difficult to solder, inspect, or rework with a standard soldering iron without bridging.
+* **No Built-in Current Sensing:** Lacks a dedicated `ISEN` pin, preventing the use of external sense resistors to measure or actively control motor current.
+* **Startup Voltage Glitches & Efficiency Loss:** Logic inputs easily float during microcontroller boot, causing motor twitches. High internal resistance also wastes battery voltage as heat before it reaches the motors.
+
+---
+
+### Final Solution: Dual DRV8870 (High Power & Current Chopping)
+
+<img width="1298" height="437" alt="image" src="https://github.com/user-attachments/assets/195faf15-e0a2-4435-b9f5-aba8458ab8ba" />
+
+I upgraded to two DRV8870 drivers featuring an exposed PowerPAD package and external sense resistors:
+* **Hand-Soldering Friendly:** The larger HSOP-8 package with exposed leads proved crucial for reliable hand-assembly and inspection during board prototyping.
+* **Superior Thermals:** Lower internal resistance ($450\,\text{m}\Omega$) paired with a copper thermal pad handles up to $3.6\text{A}$ peak current safely.
+* **Smart Current Chopping ($I_{\text{TRIP}}$):** Instead of shutting down completely during a stall, the driver uses parallel sense resistors ($R17 - R20$) totaling $0.2\,\Omega$ to limit current automatically:
+  $$I_{\text{TRIP}} = \frac{V_{\text{REF}}}{10 \times R_{\text{ISEN}}} = \frac{3.3\text{V}}{10 \times 0.2\,\Omega} = 1.65\text{A}$$
+  When pushing heavy loads, the chip acts like an automatic safety valve—"chopping" current to maintain maximum pushing force without tripping power failures or browning out the battery rail.
+* **Brush Noise Suppression:** Added $0.1\,\mu\text{F}$ ceramic capacitors ($C2, C5$) directly across the motor terminals to absorb high-frequency electrical noise before it can interfere with the I2C gyroscope or IR floor sensors.
+
+---
