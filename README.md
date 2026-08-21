@@ -34,13 +34,6 @@ Heading-Corrected Rovers: Closed-loop yaw monitoring for straight-line different
 ### First Attempt: Two-Stage Buck Regulation
 My initial plan was to use two buck converters in series to drop the 7.4V (2S LiPo) battery voltage down to 5V, and then down to 3.3V for the system ICs to maximize energy efficiency.
 <img width="1337" height="504" alt="Screenshot 2026-07-03 165300" src="https://github.com/user-attachments/assets/1924f090-6275-4f11-8a7b-51b6312f975c" />
-* **Buck Stage 1 (7.4V → 5V):** Powers 5V peripherals (servos/sensors) and feeds the second regulator stage.
-  * *Space for Stage 1 Schematic / Layout Image:*
-  * 
-
-* **Buck Stage 2 (5V → 3.3V):** Steps down 5V to power the ESP32, MPU-6050, and SSD1306 OLED screen.
-  * *Space for Stage 2 Schematic / Layout Image:*
-  * 
 
 **The Problem:** Each buck converter requires its own dedicated supporting passives (inductors, filter capacitors, and feedback resistors). Running two switching stages took up too much PCB footprint, added significant routing complexity, and increased the overall Bill of Materials (BOM) cost.
 
@@ -49,5 +42,19 @@ My initial plan was to use two buck converters in series to drop the 7.4V (2S Li
 ### Final Solution: Single Buck + 3.3V LDO Regulator
 I simplified the power tree by keeping a single buck converter for the 5V rail and replacing the second buck stage with a straightforward 3.3V Low-Dropout (LDO) linear regulator.
 <img width="662" height="161" alt="image" src="https://github.com/user-attachments/assets/78cd9888-940a-4b8b-9529-73642ea8acf9" /> <img width="493" height="248" alt="image" src="https://github.com/user-attachments/assets/36244862-ba0c-40d4-b81a-cdb78638a8ed" />
+
+## Peer Design Review: Power & Protection Enhancements
+
+Following the V1 layout release, a community hardware review identified several critical power delivery and protection improvements to increase reliability during high-stress Mini Sumo operation:
+
+### 1. Battery Input & System Protection
+* **Circuit Protection:** The design was solid, but it lacked input safety. Adding an in-line fuse and a reverse-polarity protection circuit (e.g., a P-channel MOSFET or ideal diode) on the 2S LiPo rail is essential to prevent permanent board failure from accidental battery misplugs during quick pit stops.
+* **Input Bulk Decoupling:** The 10 µF input capacitor ($C_{\text{IN}1}$) on the buck regulator followed basic bench-supply reference designs. However, long battery wire harnesses introduce parasitic inductance. Upgrading $C_{\text{IN}1}$ to a **47 µF ceramic + 10 µF ceramic paired with a 100 µF electrolytic** lowers High-Frequency ESR and prevents sudden motor current draw from sagging the shared battery rail and browning out the ESP32.
+
+### 2. Switching Regulator Duty Cycle & Stability
+* At 7.4 V nominal input, the 5 V buck converter operates near a **0.67 duty cycle** (higher as the LiPo drains). Because the regulator uses peak current mode with fixed internal compensation, switch-node signal integrity must be verified under full load with an oscilloscope to ensure stable loop performance across the entire discharge curve.
+
+### 3. ESD & Port Safety
+* Added dedicated **ESD protection diodes (e.g., USBLC6-2SC6)** on the USB-C $V_{\text{BUS}}$ and $D+/D-$ lines to guard the ESP32 against static discharge during field flashing and diagnostics.
 
 
