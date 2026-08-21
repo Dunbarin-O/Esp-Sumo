@@ -206,6 +206,8 @@ Testing the physical V1 board revealed several layout footprint mismatches and r
 An interactive MicroPython script that measures reaction times in milliseconds using `time.ticks_ms()` to stress-test button responsiveness under dynamic polling loop conditions.
 
 ```python
+#MADE FOR MICROPYTHON 
+Python
 import time
 import random
 from machine import Pin
@@ -281,7 +283,7 @@ print("=" * 40)
 
 This script verifies manual servo position control using pushbuttons connected to **GPIO 3** (SW4), **GPIO 6** (SW5), and **GPIO 7** (SW6). It controls the servo signal line on **GPIO 18**. 
 
-* **Note:** Had to bypass a tight spot on the board by jumping signals directly with jumper wires during testing.
+* **Note:** i Had to bypass a tight spot on the board by jumping signals directly with jumper wires during testing.
 
 ```python
 import time
