@@ -26,8 +26,8 @@ For detailed technical implementation, schematics, component calculations, PCB l
   * `Mini_sumo.zip` – Production Gerber & drill files for board fabrication.
   * `combined_bom.csv` – Bill of Materials listing all active and passive components.
   * `positions.csv` – Pick-and-Place (CPL / Centroid) file for automated SMT assembly.
-
-ESP32 General-Purpose Robotics Development Kit in its early stages 
+Project is in
+ its early stages 
 
 A low-cost, open-source motion control board for ESP32-based robots.
 High-performance motor boards are usually expensive or made for just one job. This project is a low-cost, all-in-one board that lets you build precise small robots without needing extra shields or breakout boards.
