@@ -55,6 +55,8 @@ Following the V1 layout release, a community hardware review identified several 
 * At 7.4 V nominal input, the 5 V buck converter operates near a **0.67 duty cycle** (higher as the LiPo drains). Because the regulator uses peak current mode with fixed internal compensation, switch-node signal integrity must be verified under full load with an oscilloscope to ensure stable loop performance across the entire discharge curve.
 
 ### 3. ESD & Port Safety
-* Added dedicated **ESD protection diodes (e.g., USBLC6-2SC6)** on the USB-C $V_{\text{BUS}}$ and $D+/D-$ lines to guard the ESP32 against static discharge during field flashing and diagnostics.
+* Added dedicated **ESD protection IC (USBLC6-2SC6)** on the USB-C $V_{\text{BUS}}$ and $D+/D-$ lines to guard the ESP32 against static discharge during  flashing
+* <img width="1271" height="834" alt="image" src="https://github.com/user-attachments/assets/a236f976-6519-4381-b47c-92eb4bb5672a" />
+
 
 
