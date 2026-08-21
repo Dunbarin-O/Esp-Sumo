@@ -1,4 +1,31 @@
 # Esp-Sumo
+## Design Story
+
+I started this project because I wanted to build a mini-sumo robot. I quickly found myself relying on a mess of separate motor drivers, sensors, regulators, and breakout boards, so I decided to design a single, integrated PCB built specifically around the robot's hardware requirements.
+
+One of my first major challenges was the power architecture. I initially planned to use two buck converters in series to drop the 7.4 V battery supply to 5 V, and then down to 3.3 V. As I developed the PCB layout, I realized the second converter added significant component count, trace routing complexity, cost, and board space for a relatively small efficiency benefit. I revised the design to use a single 5 V buck converter followed by a 3.3 V LDO linear regulator. 
+
+This decision taught me a core engineering lesson: design isn't about maximizing a single specification on paper—it is about balancing performance, cost, reliability, and complexity.
+
+After completing the V1 layout, I had the board reviewed by another hardware designer. That review exposed critical real-world edge cases I had overlooked, including battery reverse-polarity protection, transient motor current demands, USB-C ESD protection, and rail isolation. I incorporated this feedback directly into the design to overhaul the power architecture and significantly improve board protection and reliability.
+
+The most valuable part of this project wasn't just getting the first design to pass DRC. It was learning that a circuit can look completely correct in a schematic capture tool while real-world implementation challenges lie just beneath the surface.
+
+V1 is not the final answer—it is a functional iteration shaped by design decisions, mistakes, peer feedback, and continuous improvement.
+
+---
+
+### Read Further
+
+For detailed technical implementation, schematics, component calculations, PCB layout files, and manufacturing outputs, explore the rest of the repository:
+
+* **`PCB/`** – Native KiCad design files:
+  * `Mini_sumo.kicad_sch` – Schematic capture files.
+  * `Mini_sumo.kicad_pcb` – PCB trace routing and board layout.
+* **`Hardware/`** – Assembly and manufacturing outputs:
+  * `Mini_sumo.zip` – Production Gerber & drill files for board fabrication.
+  * `combined_bom.csv` – Bill of Materials listing all active and passive components.
+  * `positions.csv` – Pick-and-Place (CPL / Centroid) file for automated SMT assembly.
 
 ESP32 General-Purpose Robotics Development Kit in its early stages 
 
